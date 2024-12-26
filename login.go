@@ -86,10 +86,29 @@ func (t TestLogin) ProcessLoginFunc() bool {
 		fmt.Println("Failed to make screenshot :", err)
 		return false
 	}
-	if err := os.WriteFile("screenshot.png", bytes, 0644); err != nil {
+	if err := os.WriteFile("screenshotIn.png", bytes, 0644); err != nil {
 		fmt.Println("Failed to save screenshot :", err)
 		return false
 	}
-	// Additional checks or validations can go here
+	exitButtonElement, err := t.driver.FindElement(selenium.ByXPATH, "/html/body/nav/div[2]/form/button")
+	if err != nil {
+		fmt.Println("Failed to find exit button :", err)
+		return false
+	}
+	err = exitButtonElement.Click()
+	if err != nil {
+		fmt.Println("Failed to click exit :", err)
+		return false
+	}
+	bytes, err = t.driver.Screenshot()
+
+	if err != nil {
+		fmt.Println("Failed to make screenshot :", err)
+		return false
+	}
+	if err := os.WriteFile("screenshotExit.png", bytes, 0644); err != nil {
+		fmt.Println("Failed to save screenshot :", err)
+		return false
+	}
 	return true
 }

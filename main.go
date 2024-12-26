@@ -15,8 +15,12 @@ func main() {
 	}
 	defer service.Stop()
 
-	testLogin := TestLoginBuild()
-	testLogin.ProcessLoginFunc()
+	// testLogin := TestLoginBuild()
+	// testLogin.ProcessLoginFunc()
+
 	// testCase := TestCaseBuild()
 	// testCase.ProccessGetRawUrl()
+
+	ticketCase := TestBoolFlightBuild()
+	ticketCase.ProcessBuyTicketFunc()
 }
