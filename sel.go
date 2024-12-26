@@ -56,16 +56,31 @@ func (t TestCase) BuildQuery() string {
 	return builder.String()
 }
 
-func main() {
-	service, err := selenium.NewChromeDriverService("./samples/Sel/chromedriver-win64/chromedriver.exe", 4444)
+func (t TestCase) ProccessGetRawUrl() {
+	test := TestCaseBuild()
+
+	err := test.driver.Get(test.config.Host)
+
 	if err != nil {
 		fmt.Println(err)
 	}
-	defer service.Stop()
+	html, err := test.driver.PageSource()
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(html)
+}
+
+func (t TestCase) ProcessGetUrl() {
+	// service, err := selenium.NewChromeDriverService("./chromedriver-win64/chromedriver.exe", 4444)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
+	// defer service.Stop()
 	test := TestCaseBuild()
 
 	query := test.BuildQuery()
-	err = test.driver.Get(query)
+	err := test.driver.Get(query)
 
 	if err != nil {
 		fmt.Println(err)
